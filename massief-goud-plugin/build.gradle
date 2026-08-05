@@ -1,0 +1,50 @@
+plugins {
+	id 'java'
+	id 'application'
+}
+
+def runeLiteVersion = 'latest.release'
+
+group = 'com.massiefgoud'
+version = '1.0.0'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+application {
+	mainClass = 'net.runelite.client.RuneLite'
+}
+
+repositories {
+	mavenLocal()
+	maven {
+		url = 'https://repo.runelite.net'
+	}
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly group: 'net.runelite', name: 'client', version: runeLiteVersion
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.34'
+	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.34'
+
+	testImplementation group: 'net.runelite', name: 'client', version: runeLiteVersion
+	testImplementation group: 'junit', name: 'junit', version: '4.12'
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.0.0'
+
+	runtimeOnly group: 'net.runelite', name: 'client', version: runeLiteVersion
+}
+
+test {
+	useJUnit()
+}
+
+tasks.named('run') {
+	// Zorgt dat de dev-client deze plugin herkent zonder 'm in de Plugin Hub te zetten
+	jvmArgs += ['-ea', '-Ddeveloper-mode=true']
+}
