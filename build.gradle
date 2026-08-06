@@ -1,6 +1,5 @@
 plugins {
 	id 'java'
-	id 'application'
 }
 
 def runeLiteVersion = 'latest.release'
@@ -11,10 +10,6 @@ version = '1.0.0'
 java {
 	sourceCompatibility = JavaVersion.VERSION_1_8
 	targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-application {
-	mainClass = 'net.runelite.client.RuneLite'
 }
 
 repositories {
@@ -39,9 +34,4 @@ dependencies {
 
 test {
 	useJUnit()
-}
-
-tasks.named('run') {
-	// Zorgt dat de dev-client deze plugin herkent zonder 'm in de Plugin Hub te zetten
-	jvmArgs += ['-ea', '-Ddeveloper-mode=true']
 }
