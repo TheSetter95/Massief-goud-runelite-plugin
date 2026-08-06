@@ -40,7 +40,8 @@ public class MassiefGoudPlugin extends Plugin
 	@Inject
 	private ItemManager itemManager;
 
-	private final Gson gson = new Gson();
+	@Inject
+	private Gson gson;
 
 	@Provides
 	MassiefGoudConfig provideConfig(ConfigManager configManager)
